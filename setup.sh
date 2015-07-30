@@ -26,7 +26,7 @@ BUILDENV=`mktemp -d /tmp/mageteststand.XXXXXXXX`
  
 echo "Using build directory ${BUILDENV}"
  
-git clone https://github.com/AOEpeople/MageTestStand.git "${BUILDENV}"
+git clone https://github.com/juno-media/MageTestStand.git "${BUILDENV}"
 cp -rf "${WORKSPACE}" "${BUILDENV}/.modman/"
 ${BUILDENV}/install.sh
 if [ -d "${WORKSPACE}/vendor" ] ; then
@@ -34,5 +34,8 @@ if [ -d "${WORKSPACE}/vendor" ] ; then
 fi
  
 cd ${BUILDENV}/htdocs
-${BUILDENV}/bin/phpunit --colors -d display_errors=1
+if [ ! -z $SKIP_UT ]; then
+  ${BUILDENV}/bin/phpunit --colors -d display_errors=1
+fi
+
 
